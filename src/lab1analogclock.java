@@ -29,7 +29,7 @@ public class lab1analogclock extends Application{
 		int minutehandlength = 200;
 		int secondhandlength = 250;
 		
-		Color transparent = Color.TRANSPARENT;
+		Color transparent = Color.TRANSPARENT;//Set up colors
 		Color black = Color.BLACK;
 		Color cyan = Color.CYAN;
 		
@@ -47,7 +47,7 @@ public class lab1analogclock extends Application{
 			marks[i].setEndY(Math.sin(Math.PI/6 * i) * (radius - dashlength) + centery);
 		}
 		
-		Line minimarks[] = new Line[60];//Create tiny marks
+		Line minimarks[] = new Line[60];//Create tiny marks on clock edge
 		for (int s = 0; s < minimarks.length; s++)
 		{
 			minimarks[s] = new Line();
@@ -71,24 +71,24 @@ public class lab1analogclock extends Application{
 			{
 				Calendar calendar = Calendar.getInstance();
 				
-				int second = calendar.get(SECOND);
-				int minute = calendar.get(MINUTE) + second/60;
-				int hour = calendar.get(HOUR) + minute/60;
+				double second = calendar.get(SECOND);//Establish seconds, minutes and hours accounting for increments without ticking
+				double minute = calendar.get(MINUTE) + second/60;
+				double hour = calendar.get(HOUR) + minute/60;
 				
 				secondhand.setStartX(centerx);
 				secondhand.setStartY(centery);
-				secondhand.setEndX(-Math.sin(Math.PI * second / 30) * secondhandlength + centerx);
-				secondhand.setEndY(-Math.cos(Math.PI * second / 30) * secondhandlength + centery);
+				secondhand.setEndX(-Math.sin(-Math.PI * second / 30) * secondhandlength + centerx);
+				secondhand.setEndY(-Math.cos(-Math.PI * second / 30) * secondhandlength + centery);//Place second hand
 				
 				minutehand.setStartX(centerx);
 				minutehand.setStartY(centery);
-				minutehand.setEndX(-Math.sin(Math.PI * minute / 30) * minutehandlength + centerx);
-				minutehand.setEndY(-Math.cos(Math.PI * minute / 30) * minutehandlength + centery);
+				minutehand.setEndX(-Math.sin(-Math.PI * minute / 30) * minutehandlength + centerx);
+				minutehand.setEndY(-Math.cos(-Math.PI * minute / 30) * minutehandlength + centery);//Place minute hand
 				
 				hourhand.setStartX(centerx);
 				hourhand.setStartY(centery);
-				hourhand.setEndX(-Math.sin(Math.PI * hour / 30) * hourhandlength + centerx);
-				hourhand.setEndY(-Math.cos(Math.PI * hour / 30) * hourhandlength + centery);
+				hourhand.setEndX(-Math.sin(-Math.PI * hour / 6) * hourhandlength + centerx);
+				hourhand.setEndY(-Math.cos(-Math.PI * hour / 6) * hourhandlength + centery);//Place hour hand
 			}
 		};
 		timer.start();
@@ -107,12 +107,9 @@ public class lab1analogclock extends Application{
 		}
 		root.getChildren().addAll(hourhand, minutehand, secondhand);//Add hands
 		
-		Scene scene = new Scene(root, 720, 720);
+		Scene scene = new Scene(root, 720, 720);//Create window
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Clock");
 		primaryStage.show();
 	}
 }
-/*THINGS LEFT TO DO
- * Fix x and y values of hands
- */
