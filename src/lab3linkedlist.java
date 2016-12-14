@@ -32,6 +32,23 @@ class listelement{
 class list{
 	listelement first;
 	
+	listelement find(String last)
+	{
+		listelement element = first;
+		while (element != null)
+		{
+			if (element.lastName.equals(last))
+			{
+				return element;
+			}
+			else
+			{
+				element = element.next;
+			}
+		}
+		return null;
+	}
+
 	void insert(listelement element)
 	{
 		if (first == null)
@@ -69,6 +86,35 @@ class list{
 			current = current.next;
 		}
 	}
+	
+	void delete(String last)
+	{
+		listelement element = first;
+		if (element == null)
+		{
+			return;
+		}
+		else
+		{
+			if(element.lastName.equals(last))
+			{
+				first = element.next;
+			}
+			
+			while (element.next != null)
+			{
+				if (element.next.lastName.equals(last))
+				{
+					element.next = element.next.next;
+					return;
+				}
+				else
+				{
+					element = element.next;
+				}
+			}
+		}
+	}
 }
 
 //first main class, sorts by last name
@@ -97,11 +143,10 @@ public class lab3linkedlist{
 				listelement student = new listelement(lastName, firstName);
 				classlist.insert(student);
 			}
-			classlist.printlist();
 		}catch (IOException EXC)
 		{
 			EXC.printStackTrace();
 		}
-		
+		classlist.printlist();
 	}
 }
