@@ -40,10 +40,16 @@ class list{
 			return;
 		}
 		listelement current = first;
+		if (current.lastName.compareTo(element.lastName) > 0)
+		{
+			element.next = current;
+			first = element;
+			return;
+		}
 		while(current.next != null)
 		{
-			if (current.lastName.compareTo(element.lastName) > 0 && current.next.lastName.compareTo(element.lastName) < 0
-					|| current.lastName.compareTo(element.lastName) == 0)
+			if (current.lastName.compareTo(element.lastName) < 0 && current.next.lastName.compareTo(element.lastName) > 0
+					|| current.lastName.equals(element.lastName))
 			{
 				element.next = current.next;
 				current.next = element;
@@ -52,6 +58,16 @@ class list{
 			current = current.next;
 		}
 		current.next = element;
+	}
+	
+	void printlist()
+	{
+		listelement current = first;
+		while (current.next != null)
+		{
+			System.out.println(current.lastName + " " + current.firstName);
+			current = current.next;
+		}
 	}
 }
 
@@ -81,6 +97,7 @@ public class lab3linkedlist{
 				listelement student = new listelement(lastName, firstName);
 				classlist.insert(student);
 			}
+			classlist.printlist();
 		}catch (IOException EXC)
 		{
 			EXC.printStackTrace();
